@@ -1,10 +1,13 @@
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import ApplicationError from "./backend/src/middleware/applicationError.middleware.js";
+import { employeeManagementRouter } from "./backend/src/feature/employee.router.js";
+import { connectMongoose } from "./backend/src/config/config.js";
 const server = express()
 server.use(express.json())
+server.use("/api/employee",employeeManagementRouter)
 server.use((err,req,res,next)=>{
     if(err instanceof ApplicationError){
         return res.status(err.code || 500).send(err.message);
@@ -16,4 +19,5 @@ server.use((err,req,res,next)=>{
 })
 server.listen(process.env.PORT || 3000,()=>{
     console.log(`Server is listening ${process.env.PORT}`)
+    connectMongoose()
 })
