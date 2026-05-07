@@ -31,6 +31,7 @@ export default class EmployeeController{
             throw new ApplicationError(500, "Something went wrong");
         }
     }
+    // get all active employee details
         async getAllActiveEmployeeDetails(req, res) {
         try {
             const activeEmployeeDetails = await this.employeeRepository.allActiveEmployeeDetails();
@@ -41,6 +42,7 @@ export default class EmployeeController{
             throw new ApplicationError(500, "Something went wrong");
         }
     }
+    //updating employee details by id 
             async updateEmployeeDetails(req, res) {
         try {
             const updatedEmployeeDetails = await this.employeeRepository.updateEmployeeDetails(req.params.id,req.body)
@@ -51,6 +53,7 @@ export default class EmployeeController{
             throw new ApplicationError(500, "Something went wrong");
         }
     }
+    //soft deleting  :turning employee status from active to inactive
     async softDelete(req,res){
         try{
         const inactiveEmployee= await this.employeeRepository.intoInactiveEmployee(req.params.id);
